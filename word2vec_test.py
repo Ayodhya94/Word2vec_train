@@ -3,6 +3,7 @@ import logging
 import os
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
+from gensim.models import KeyedVectors
 
 logging.basicConfig(
     format='%(asctime)s : %(levelname)s : %(message)s',
@@ -85,3 +86,18 @@ if __name__ == '__main__':
 
     # save only the word vectors
     model.wv.save("/Users/ayodhya/Documents/GitHub/Data_mapping/word2vec_vectors")
+
+    wv = KeyedVectors.load("/Users/ayodhya/Documents/GitHub/Data_mapping/default", mmap='r')
+
+    # Get vector of a word (Eg. "room")
+    print("\nVector of word'room':")
+    print(wv["room"])
+
+    # Get similarity of two words. (Eg. "room" and "building")
+    print("\nSimilarity of tow words 'room' and 'building':")
+    print(wv.similarity("room", "building"))
+
+    # Get most similar words to a word (Eg. "room")
+    print("\nMost similar words to 'building'")
+    print(wv.most_similar(positive="building"))
+
