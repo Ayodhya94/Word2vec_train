@@ -1,4 +1,3 @@
-# import gzip
 import gensim
 import logging
 import os
@@ -54,16 +53,12 @@ def show_file_contents(input_file):
 
 
 def read_input(input_file):
-    """This method reads the input file"""
-
     logging.info("reading file {0}...this may take a while".format(input_file))
     with open(input_file, 'rb') as f:
         for i, line in enumerate(f):
 
             if i % 10000 == 0:
                 logging.info("read {0} reviews".format(i))
-            # do some pre-processing and return list of words for each review
-            # text
             yield gensim.utils.simple_preprocess(line)
 
 
@@ -76,9 +71,6 @@ if __name__ == '__main__':
     # data_file = os.path.join(abspath, "reviews_data.txt")
     data_file = os.path.join(abspath, "input_data.txt")
 
-    # read the tokenized reviews into a list
-    # each review item becomes a series of words
-    # so this becomes a list of lists
     documents = list(read_input(data_file))
     logging.info("Done reading data file")
 
@@ -92,66 +84,4 @@ if __name__ == '__main__':
     model.train(documents, total_examples=len(documents), epochs=10)
 
     # save only the word vectors
-    # model.wv.save(os.path.join(abspath, "/vectors/default"))
     model.wv.save("/Users/ayodhya/Documents/GitHub/Data_mapping/word2vec_vectors")
-
-    # wv = KeyedVectors.load("/Users/ayodhya/PycharmProjects/word2vec/vectors/default", mmap='r')
-    #
-    # w1 = "dirty"
-    # print("Most similar to {0}".format(w1), wv.most_similar(positive=w1))
-    #
-    # # look up top 6 words similar to 'polite'
-    # w1 = ["polite"]
-    # print(
-    #     "Most similar to {0}".format(w1),
-    #     wv.most_similar(
-    #         positive=w1,
-    #         topn=6))
-
-    # # look up top 6 words similar to 'france'
-    # w1 = ["france"]
-    # print(
-    #     "Most similar to {0}".format(w1),
-    #     model.wv.most_similar(
-    #         positive=w1,
-    #         topn=6))
-    #
-    # # look up top 6 words similar to 'shocked'
-    # w1 = ["shocked"]
-    # print(
-    #     "Most similar to {0}".format(w1),
-    #     model.wv.most_similar(
-    #         positive=w1,
-    #         topn=6))
-    #
-    # # look up top 6 words similar to 'shocked'
-    # w1 = ["beautiful"]
-    # print(
-    #     "Most similar to {0}".format(w1),
-    #     model.wv.most_similar(
-    #         positive=w1,
-    #         topn=6))
-
-    # # get everything related to stuff on the bed
-    # w1 = ["bed", 'sheet', 'pillow']
-    # w2 = ['couch']
-    # print(
-    #     "Most similar to {0}".format(w1),
-    #     wv.most_similar(
-    #         positive=w1,
-    #         negative=w2,
-    #         topn=10))
-
-    # # similarity between two different words
-    # print("Similarity between 'dirty' and 'smelly'",
-    #       wv.similarity(w1="dirty", w2="smelly"))
-
-    # # similarity between two identical words
-    # print("Similarity between 'dirty' and 'dirty'",
-    #       model.wv.similarity(w1="dirty", w2="dirty"))
-    #
-    # # similarity between two unrelated words
-    # print("Similarity between 'dirty' and 'clean'",
-    #       model.wv.similarity(w1="dirty", w2="clean"))
-
-    # vector = wv['computer']
