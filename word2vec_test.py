@@ -88,6 +88,7 @@ if __name__ == '__main__':
     path = os.path.join(abspath, "word2vec_vectors")
     model.wv.save(path)
 
+    # Some sample use cases of word2vec model:
     path = os.path.join(abspath, 'vectors/default')
     wv = KeyedVectors.load(path, mmap='r')
 
