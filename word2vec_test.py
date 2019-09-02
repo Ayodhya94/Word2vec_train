@@ -64,7 +64,7 @@ def read_input(input_file):
 
 
 if __name__ == '__main__':
-
+    dirname = os.getcwd()
     create_input_file("Datasets/courses_schemas.txt")
     # create_input_file("Datasets/real_es_schema.txt")
 
@@ -85,9 +85,11 @@ if __name__ == '__main__':
     model.train(documents, total_examples=len(documents), epochs=10)
 
     # save only the word vectors
-    model.wv.save("/Users/ayodhya/Documents/GitHub/Data_mapping/word2vec_vectors")
+    path = os.path.join(abspath, "input_data.txt/word2vec_vectors")
+    model.wv.save(path)
 
-    wv = KeyedVectors.load("/Users/ayodhya/Documents/GitHub/Data_mapping/default", mmap='r')
+    path = os.path.join(abspath, 'vectors/default')
+    wv = KeyedVectors.load(path, mmap='r')
 
     # Get vector of a word (Eg. "room")
     print("\nVector of word'room':")
